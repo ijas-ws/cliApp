@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/ijasMohamad/cobra-cli/gqlgenUtils/fileUtils"
+	"github.com/ijasMohamad/cliApp/gqlgenUtils/fileUtils"
 	"github.com/spf13/cobra"
 )
 
@@ -20,6 +20,7 @@ var initCmd = &cobra.Command{
 		err := fileUtils.MakeDirectory(path, "gql")
 		if err != nil {
 			if os.IsExist(err) {
+
 				err = fileUtils.MakeDirectory(path+"/gql", "models")
 				if err != nil {
 					if os.IsExist(err) {
@@ -28,12 +29,14 @@ var initCmd = &cobra.Command{
 					fmt.Println("try 'negt gqlgen help'.")
 					os.Exit(1)
 				}
+
 				fmt.Println("New directory 'gql/models' created.")
 				return
 			}
 			fmt.Println("try 'negt gqlgen help'.")
 			os.Exit(1)
 		}
+
 		err = fileUtils.MakeDirectory(path+"/gql", "models")
 		if err != nil {
 			if os.IsExist(err) {
@@ -42,6 +45,7 @@ var initCmd = &cobra.Command{
 			fmt.Println("try 'negt gqlgen help'.")
 			os.Exit(1)
 		}
+
 		fmt.Println("New directory 'gql/models' created.")
 	},
 }

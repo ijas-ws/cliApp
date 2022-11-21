@@ -1,6 +1,6 @@
 package hbs
 
-import "github.com/ijasMohamad/cobra-cli/gqlgenUtils/fileUtils"
+import "github.com/ijasMohamad/cliApp/gqlgenUtils/fileUtils"
 
 func ListSource(modelName, path, file string, ctx map[string]interface{})  error {
 	source := `import { createConnection } from 'graphql-sequelize';
@@ -20,6 +20,16 @@ export const {{singularModel}}Connection = createConnection({
 	},
 	...totalConnectionFields
 });
+
+export const {{singularModel}}List = {
+	list: {
+		...{{singularModel}}Connection,
+		resolve: {{singularModel}}Connection.resolve,
+		type: {{singularModel}}Connection.connectionType,
+		args: {{singularModel}}Connection.connectionArgs
+	},
+	model: db.{{pluralModel}}
+};
 `
 	tpl, err := GenerateTemplate(source, ctx)
 	if err != nil {
